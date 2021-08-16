@@ -47,11 +47,11 @@ export default function OrderDetail({
         >
           <QuestionOutlineIcon boxSize="14" />
           <Text fontSize="xl" textAlign="center">
-            No hay ningún producto seleccionado
+            No hay ningún pedido seleccionado
           </Text>
           <Divider />
           <Text fontSize="medium" textAlign="center">
-            Seleccione un producto de la lista para visualizar el detalle del
+            Seleccione un pedido de la lista para visualizar el detalle del
             mismo.
           </Text>
         </Stack>

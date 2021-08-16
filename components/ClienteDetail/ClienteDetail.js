@@ -7,6 +7,7 @@ import {
   Box,
   IconButton,
   Badge,
+  Button,
 } from "@chakra-ui/react";
 import { MdClear } from "react-icons/md";
 import ClienteListElement from "../ClienteListElement/ClienteListElement";
@@ -83,15 +84,20 @@ export default function ClienteDetail({
 
           <Text fontSize="medium" fontWeight="bold">
             Cuit:
-            <Badge fontSize="medium" fontWeight="bold" ml={2}>
-              {`$${cliente.cuit}`}
+            <Badge
+              variant="transparent"
+              fontSize="medium"
+              fontWeight="bold"
+              ml={2}
+            >
+              {`${cliente.cuit}`}
             </Badge>
           </Text>
         </Flex>
 
         <Divider my={2} />
 
-        {/* mostramos para asignar pedidos */}
+        <Button color={"red.300"}> Eliminar Cliente</Button>
       </Box>
     </Flex>
   );

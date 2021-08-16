@@ -19,6 +19,7 @@ import {
   useDisclosure,
   Grid,
   GridItem,
+  UnorderedList,
 } from "@chakra-ui/react";
 import { MdClear } from "react-icons/md";
 import CamionListElement from "../CamionListElement/camionListElement";
@@ -86,7 +87,7 @@ const Pedidos = ({ onClose, setPedidosLista }) => {
             pedidos={data}
             setSelected={() => {
               setSelected();
-              setPedidosLista((prev) => prev.push(selected));
+              setPedidosLista((prev) => prev.push([selected]));
             }}
             onClose={onClose}
           />
@@ -211,12 +212,12 @@ export default function CamionAssign({ camion, onClearSelectionPressed }) {
           <Divider my={2} />
           <Flex direction="row" justifyContent="space-betwee">
             <Flex rounded={6} p={6} background="gray.800" flexGrow={1}>
-              <Text fontSize="medium" textColor={"gray.400"}>
-                Acá irian Los Pedidos que se Seleccionaron previamente
-              </Text>
-
-              <Spacer></Spacer>
-
+              {console.log(pedidoLista.toString)}
+              <UnorderedList marginRight={4}>
+                {pedidoLista.map((p, index) => (
+                  <Box key={p.id} mt={4} overscrollY="hidden"></Box>
+                ))}
+              </UnorderedList>
               <IconButton
                 aria-label="Agregar Pedido"
                 icon={<AddIcon />}
@@ -227,10 +228,15 @@ export default function CamionAssign({ camion, onClearSelectionPressed }) {
 
               <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent maxW="50rem" h="35rem">
                   <ModalHeader>Seleccionar Pedido</ModalHeader>
                   <ModalCloseButton />
-                  <ModalBody>Aca se asignan Pedidos</ModalBody>
+                  <ModalBody>
+                    <Pedidos
+                      onClose={onClose}
+                      setPedidosLista={setPedidoLista}
+                    ></Pedidos>
+                  </ModalBody>
                   <ModalFooter>
                     <Button variant="ghost" mr={3}>
                       Añadir

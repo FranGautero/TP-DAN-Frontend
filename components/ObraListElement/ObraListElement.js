@@ -1,26 +1,23 @@
-/* eslint-disable eqeqeq */
 import { Badge, Box, Divider, Flex, Text } from "@chakra-ui/react";
 
 import React from "react";
 
 /**
  * @param {{
- * cliennte: {
+ * obra: {
  *  id: string,
- *  razonSocial: string,
- *  cuit: string,
- *  emal: string,
- *  obras: {id: string, descripcion: string, direccion: string}[],
+ *  descripcion: string,
+ *  direcccion: string,
  *  setSelected: any
  * }} props
  */
-function ClienteListElement({ cliente, setSelected }) {
+function ObraListElement({ obra, setSelected }) {
   return (
     <Box
       background="gray.700"
       rounded={6}
       p={4}
-      onClick={() => setSelected(cliente)}
+      onClick={() => setSelected(obra)}
     >
       <Text
         textOverflow="ellipsis"
@@ -29,7 +26,7 @@ function ClienteListElement({ cliente, setSelected }) {
         fontSize="medium"
         fontWeight="bold"
       >
-        {`Id Cliente: ${cliente.id}`}
+        {`Id Obra: ${obra.id}`}
       </Text>
       <Divider mt={2} mb={1} />
       <Flex direction="row" justifyContent="space-between" alignItems="center">
@@ -40,18 +37,18 @@ function ClienteListElement({ cliente, setSelected }) {
             marginRight={2}
             fontSize="small"
           >
-            {`Razon Social: ${cliente.razonSocial}`}
+            {`Descripcion: ${obra.descripcion}`}
           </Text>
         </Flex>
-        <Badge variant="transparent">{`E-mail: ${cliente.emal}`}</Badge>
+        <Badge variant="transparent">{`Direcccion: ${obra.direcccion}`}</Badge>
       </Flex>
       <Divider mt={1} mb={1} />
 
       <Text fontSize="xs" fontStyle="italic" mt={1}>
-        {`CUIT: ${cliente.cuit}`}
+        {`Tipo: Construccion`}
       </Text>
     </Box>
   );
 }
 
-export default ClienteListElement;
+export default ObraListElement;

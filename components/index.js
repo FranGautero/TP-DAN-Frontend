@@ -6,3 +6,6 @@ export { default as Loading } from "./Loading/Loading";
 export { default as ProductListElement } from "./ProductListElement/ProductListElement";
 export { default as ProductList } from "./ProductList/ProductList";
 export { default as ProductDetail } from "./ProductDetail/ProductDetail";
+export { default as ObraListElement } from "./ObraListElement/ObraListElement";
+export { default as Obralist } from "./ObraList/ObraList";
+export { default as ObraDetail } from "./ObraDetail/ObraDetail";

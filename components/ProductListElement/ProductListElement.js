@@ -40,7 +40,7 @@ function ProductListElement({ producto, setSelected }) {
             {`Descripcion: ${producto.descripcion}`}
           </Text>
         </Flex>
-        <Badge variant="solid">{`Precio: ${producto.precio}`}</Badge>
+        <Badge variant="transparent">{`Precio: ${producto.precio}`}</Badge>
       </Flex>
       <Divider mt={1} mb={1} />
 

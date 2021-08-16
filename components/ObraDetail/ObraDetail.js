@@ -19,28 +19,28 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { MdClear } from "react-icons/md";
-import ProductListElement from "../ProductListElement/ProductListElement";
+import ObraListElement from "../ObraListElement/ObraListElement";
 
 const MX = [4, 4, 20];
 const MT = 6;
 
 /**
  * @param {{
- * Producto: {
+ * obra: {
  *  id: string,
  *  descripcion: string,
- *  precio: number,
+ *  direccion: string,
  *  onMobileBackPressed: VoidFunction,
  *  isBackVisible: boolean
  * }} props
  */
-export default function ProductDetail({
-  producto,
+export default function ObraDetail({
+  obra,
   onClearSelectionPressed,
   isBackVisible,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  if (!producto)
+  if (!obra)
     return (
       <>
         <Flex flex={1} alignItems="center" justifyContent="center">
@@ -56,12 +56,12 @@ export default function ProductDetail({
           >
             <QuestionOutlineIcon boxSize="14" />
             <Text fontSize="xl" textAlign="center">
-              No hay ningún producto seleccionado
+              No hay ninguna obra seleccionado
             </Text>
             <Divider />
             <Text fontSize="medium" textAlign="center">
-              Seleccione un producto de la lista para visualizar el detalle del
-              mismo o precione el boton siguiente para agregar un Producto.
+              Seleccione una obra de la lista para visualizar el detalle del
+              mismo o precione el boton siguiente para agregar una obra.
             </Text>
             <Divider />
             <IconButton
@@ -75,13 +75,13 @@ export default function ProductDetail({
             <Modal isOpen={isOpen} onClose={onClose} isCentered size={"xl"}>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>Agregar Un Producto</ModalHeader>
+                <ModalHeader>Agregar Una Obra</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                   <Stack>
                     <Input placeholder="Descripcion" />
-                    <Input placeholder="Precio por Unidad" />
-                    <Input placeholder="Peso por Unidad" />
+                    <Input placeholder="direccion" />
+                    <Input placeholder="Tipo" />
                   </Stack>
                 </ModalBody>
                 <ModalFooter>
@@ -114,13 +114,13 @@ export default function ProductDetail({
       )}
 
       <Box mx={MX} mt={MT}>
-        <ProductListElement producto={producto} setSelected={() => {}} />
+        <ObraListElement obra={obra} setSelected={() => {}} />
       </Box>
 
       <Box mx={MX} mt={MT} background="gray.700" rounded={6} p={4}>
         <Flex direction="row" justifyContent="space-between">
           <Text fontSize="medium" fontWeight="bold">
-            Detalle de Producto
+            Detalle de la Obra
           </Text>
 
           <Text fontSize="medium" fontWeight="bold">
@@ -131,14 +131,14 @@ export default function ProductDetail({
               fontWeight="bold"
               ml={2}
             >
-              {`${producto.descripcion}`}
+              {`${obra.descripcion}`}
             </Badge>
           </Text>
         </Flex>
 
         <Divider my={2} />
 
-        <Button color={"red.300"}> Eliminar Producto</Button>
+        <Button color={"red.300"}> Eliminar Obra</Button>
       </Box>
     </Flex>
   );
