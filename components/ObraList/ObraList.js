@@ -10,7 +10,7 @@ export default function ObraList({ obras, setSelected }) {
     <UnorderedList marginRight={4}>
       {obras.map((c, index) => (
         <Box key={c.id} mt={4} overscrollY="hidden">
-          <ObraListElement producto={c} setSelected={setSelected} />
+          <ObraListElement obra={c} setSelected={setSelected} />
           {obras.length == index + 1 && (
             <Text fontSize="xs" textAlign="center" my={4}>
               No hay mas...
