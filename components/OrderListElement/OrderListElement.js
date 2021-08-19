@@ -18,7 +18,12 @@ import React from "react";
  * }} props
  */
 
-function OrderListElement({ pedido, setSelected, onClose }) {
+function OrderListElement({
+  pedido,
+  setSelected,
+  addPedidoToLista,
+  removePedidoFromCatalog,
+}) {
   const estado = pedido.estado.estado;
   return (
     <Box
@@ -27,7 +32,8 @@ function OrderListElement({ pedido, setSelected, onClose }) {
       p={4}
       onClick={() => {
         setSelected(pedido);
-        onClose();
+        addPedidoToLista(pedido);
+        removePedidoFromCatalog(pedido);
       }}
     >
       <Text

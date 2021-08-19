@@ -41,6 +41,7 @@ const Obras = () => {
           colSpan={1}
         >
           <Scrollbars>
+            {console.log(data)}
             <Obralist obras={data} setSelected={setSelected} />
           </Scrollbars>
         </GridItem>
@@ -54,7 +55,7 @@ const Obras = () => {
           display="flex"
         >
           <ObraDetail
-            producto={selected}
+            obra={selected}
             isBackVisible={isBackVisible}
             onClearSelectionPressed={() => setSelected(null)}
           />

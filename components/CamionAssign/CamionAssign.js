@@ -19,7 +19,6 @@ import {
   useDisclosure,
   Grid,
   GridItem,
-  UnorderedList,
 } from "@chakra-ui/react";
 import { MdClear } from "react-icons/md";
 import CamionListElement from "../CamionListElement/camionListElement";
@@ -29,6 +28,7 @@ import { getPedidos } from "../../api";
 import { useQuery } from "react-query";
 import { useSmallScreenDetector } from "../../hooks";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import CamionRow from "../CamionRow/CamionRow";
 
 const MX = [4, 4, 20];
 const MT = 6;
@@ -44,19 +44,16 @@ const MT = 6;
  * }} props
  */
 
-const Pedidos = ({ onClose, setPedidosLista }) => {
-  const myId = 1; // Idealmente esto se recupera con el id real del usuario
+const Pedidos = ({
+  onClose,
+  addPedidoToLista,
+  Catalog,
+  removePedidoFromCatalog,
+}) => {
   const [selected, setSelected] = useState(null);
   const hasProductSelected = selected;
-  const { isLoading, error, data } = useQuery(
-    ["pedidos", myId],
-    async () => await getPedidos(myId)
-  );
+
   const isSmallScreen = useSmallScreenDetector();
-
-  if (isLoading) return <Loading />;
-
-  if (error) return "Algo salio mal: " + error;
 
   const isBackVisible = isSmallScreen && hasProductSelected;
   // eslint-disable-next-line no-unused-vars
@@ -84,12 +81,11 @@ const Pedidos = ({ onClose, setPedidosLista }) => {
       >
         <Scrollbars>
           <OrderList
-            pedidos={data}
-            setSelected={() => {
-              setSelected();
-              setPedidosLista((prev) => prev.push([selected]));
-            }}
+            pedidos={Catalog}
+            setSelected={() => setSelected()}
             onClose={onClose}
+            addPedidoToLista={addPedidoToLista}
+            removePedidoFromCatalog={removePedidoFromCatalog}
           />
         </Scrollbars>
       </GridItem>
@@ -98,9 +94,32 @@ const Pedidos = ({ onClose, setPedidosLista }) => {
 };
 
 export default function CamionAssign({ camion, onClearSelectionPressed }) {
-  // (prev, pedido) => prev.push(pedido)
+  // hooks para la lista deel camion
   const [pedidoLista, setPedidoLista] = useState([]);
+  const addPedidoToLista = (pedido) => setPedidoLista((p) => [...p, pedido]);
+  const removePedidoFromList = (pedido) =>
+    setPedidoLista((plist) => plist.filter((p) => p.id !== pedido.id));
+
+  // Hooks para el modal
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  // hooks para la lista del modal
+
+  const [Catalog, setCatalog] = useState([]);
+  const addPedidoToCatalog = (pedido) => setCatalog((p) => [...p, pedido]);
+  const removePedidoFromCatalog = (pedido) =>
+    setCatalog((plist) => plist.filter((p) => p.id !== pedido.id));
+
+  // Movimiento inicial de Pedidos
+
+  const myId = 1; // Idealmente esto se recupera con el id real del usuario
+  const { isLoading, error } = useQuery(
+    ["pedidos", myId],
+    async () => await getPedidos(myId).then((a) => setCatalog(a))
+  );
+  if (isLoading) return <Loading />;
+  if (error) return "Algo salio mal: " + error;
+
   if (!camion)
     return (
       <Flex flex={1} alignItems="center" justifyContent="center">
@@ -186,7 +205,9 @@ export default function CamionAssign({ camion, onClearSelectionPressed }) {
                   <ModalBody>
                     <Pedidos
                       onClose={onClose}
-                      setPedidosLista={setPedidoLista}
+                      addPedidoToLista={addPedidoToLista}
+                      Catalog={Catalog}
+                      removePedidoFromCatalog={removePedidoFromCatalog}
                     ></Pedidos>
                   </ModalBody>
                   <ModalFooter>
@@ -203,21 +224,40 @@ export default function CamionAssign({ camion, onClearSelectionPressed }) {
           </Flex>
         </Box>
       ) : (
-        <Box mx={MX} mt={MT} background="gray.700" rounded={6} p={4}>
-          <Flex direction="row" justifyContent="space-between">
-            <Text fontSize="medium" fontWeight="bold">
-              Asignar Pedidos
-            </Text>
-          </Flex>
-          <Divider my={2} />
-          <Flex direction="row" justifyContent="space-betwee">
-            <Flex rounded={6} p={6} background="gray.800" flexGrow={1}>
-              {console.log(pedidoLista.toString)}
-              <UnorderedList marginRight={4}>
-                {pedidoLista.map((p, index) => (
-                  <Box key={p.id} mt={4} overscrollY="hidden"></Box>
-                ))}
-              </UnorderedList>
+        <Scrollbars>
+          <Box mx={MX} mt={MT} background="gray.700" rounded={6} p={4}>
+            <Flex direction="row" justifyContent="space-between">
+              <Text fontSize="medium" fontWeight="bold">
+                Asignar Pedidos
+              </Text>
+            </Flex>
+            <Divider my={2} />
+            <Flex
+              direction="column"
+              justifyContent="center"
+              rounded={6}
+              p={6}
+              background="gray.800"
+              flexGrow={1}
+            >
+              {pedidoLista.map((p, index) => (
+                <Flex
+                  key={p.id}
+                  background="gray.700"
+                  rounded={6}
+                  p={4}
+                  mb={4}
+                  flexGrow={1}
+                  flexDirection={"column"}
+                >
+                  <CamionRow
+                    pedido={p}
+                    removePedido={removePedidoFromList}
+                    addPedidoToCatalog={addPedidoToCatalog}
+                  ></CamionRow>
+                </Flex>
+              ))}
+
               <IconButton
                 aria-label="Agregar Pedido"
                 icon={<AddIcon />}
@@ -234,7 +274,9 @@ export default function CamionAssign({ camion, onClearSelectionPressed }) {
                   <ModalBody>
                     <Pedidos
                       onClose={onClose}
-                      setPedidosLista={setPedidoLista}
+                      addPedidoToLista={addPedidoToLista}
+                      Catalog={Catalog}
+                      removePedidoFromCatalog={removePedidoFromCatalog}
                     ></Pedidos>
                   </ModalBody>
                   <ModalFooter>
@@ -248,8 +290,8 @@ export default function CamionAssign({ camion, onClearSelectionPressed }) {
                 </ModalContent>
               </Modal>
             </Flex>
-          </Flex>
-        </Box>
+          </Box>
+        </Scrollbars>
       )}
     </Flex>
   );

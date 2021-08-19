@@ -9,3 +9,6 @@ export { default as ProductDetail } from "./ProductDetail/ProductDetail";
 export { default as ObraListElement } from "./ObraListElement/ObraListElement";
 export { default as Obralist } from "./ObraList/ObraList";
 export { default as ObraDetail } from "./ObraDetail/ObraDetail";
+export { default as RealizarPedidoDetail } from "./RealizarPedidoDetail/RealizarPedidoDetail";
+export { default as RealizarPedidoList } from "./RealizarPedidoList/RealizarPedidoList";
+export { default as RealizarPedidoListElement } from "./RealizarPedidoListElement/RealizarPedidoListElement";

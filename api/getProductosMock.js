@@ -64,7 +64,7 @@ const productoslist = [
     precio: 100.0,
   },
   {
-    id: 14,
+    id: 20,
     descripcion: "Mena de hierro",
     precio: 200.0,
   },

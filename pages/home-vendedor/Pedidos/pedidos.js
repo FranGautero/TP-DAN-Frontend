@@ -41,7 +41,11 @@ const Pedidos = () => {
           colSpan={1}
         >
           <Scrollbars>
-            <OrderList pedidos={data} setSelected={setSelected} />
+            <OrderList
+              pedidos={data}
+              setSelected={setSelected}
+              addPedidoToLista={() => {}}
+            />
           </Scrollbars>
         </GridItem>
       )}

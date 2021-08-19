@@ -5,7 +5,13 @@ import { OrderListElement } from "..";
 /**
  * @param {{pedido: any[], setSelected: any}} props
  */
-export default function OrderList({ pedidos, setSelected, onClose }) {
+export default function OrderList({
+  pedidos,
+  setSelected,
+  onClose,
+  addPedidoToLista,
+  removePedidoFromCatalog,
+}) {
   return (
     <UnorderedList marginRight={4}>
       {pedidos.map((p, index) => (
@@ -14,6 +20,8 @@ export default function OrderList({ pedidos, setSelected, onClose }) {
             pedido={p}
             setSelected={setSelected}
             onClose={onClose}
+            addPedidoToLista={addPedidoToLista}
+            removePedidoFromCatalog={removePedidoFromCatalog}
           />
           {pedidos.length == index + 1 && (
             <Text fontSize="xs" textAlign="center" my={4}>
