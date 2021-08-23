@@ -6,8 +6,10 @@ import React from "react";
  * @param {{
  * producto: {
  *  id: string,
+ *  nombre: string
  *  descripcion: string,
- *  precio: number,
+ *  precioUnitario: string,
+ *  stockActual:string
  *  setSelected: any
  * }} props
  */
@@ -40,12 +42,12 @@ function ProductListElement({ producto, setSelected }) {
             {`Descripcion: ${producto.descripcion}`}
           </Text>
         </Flex>
-        <Badge variant="transparent">{`Precio: ${producto.precio}`}</Badge>
+        <Badge variant="transparent">{`Precio: ${producto.precioUnitario}`}</Badge>
       </Flex>
       <Divider mt={1} mb={1} />
 
       <Text fontSize="xs" fontStyle="italic" mt={1}>
-        {`Peso: 100 Kg`}
+        {`Stock Actual: ${producto.stockActual}`}
       </Text>
     </Box>
   );

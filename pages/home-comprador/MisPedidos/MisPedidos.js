@@ -41,7 +41,12 @@ const MisPedidos = () => {
           colSpan={1}
         >
           <Scrollbars>
-            <OrderList pedidos={data} setSelected={setSelected} />
+            <OrderList
+              pedidos={data}
+              setSelected={setSelected}
+              addPedidoToLista={() => {}}
+              removePedidoFromCatalog={() => {}}
+            />
           </Scrollbars>
         </GridItem>
       )}

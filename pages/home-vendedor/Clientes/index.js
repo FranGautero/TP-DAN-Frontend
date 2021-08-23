@@ -1,5 +1,5 @@
 import Simple from "../../../components/HeaderCorralon/headerCorralon2";
-import Clientes from "./clientes";
+import Clientes from "./Clientes";
 import { Box } from "@chakra-ui/react";
 
 export default function HomeVendedor() {

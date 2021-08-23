@@ -45,6 +45,7 @@ const Pedidos = () => {
               pedidos={data}
               setSelected={setSelected}
               addPedidoToLista={() => {}}
+              removePedidoFromCatalog={() => {}}
             />
           </Scrollbars>
         </GridItem>
